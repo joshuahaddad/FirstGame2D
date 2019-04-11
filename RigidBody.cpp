@@ -27,8 +27,8 @@ void RigidBody::UpdatePhysics(float dt) {
     //Calculate new acceleration and velocity
     Vec2 force = net_force_*shape_->GetInvMass();
     acceleration_ += force;
-    velocity_ += acceleration_;
-    position_ += velocity_*dt;
+    velocity_ += acceleration_*(dt*1000);
+    position_ += velocity_*(dt*5);
 
     if(abs(velocity_.GetX()) > max_speed){
         velocity_.GetX() > 0 ? velocity_.SetX(max_speed) : velocity_.SetX(-max_speed);
@@ -89,7 +89,7 @@ void RigidBody::SetY(float y) {
 }
 
 void RigidBody::AddGravitational(RigidBody* partner) {
-    const float G = 6.67408 * pow(10, -9);
+    const float G = 6.67408 * pow(10, -8);
     float r_squared = pow(Distance(partner), 2);
     float m1 = shape_->GetMass();
     float m2 = partner->GetShape()->GetMass();

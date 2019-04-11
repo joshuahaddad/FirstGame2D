@@ -12,10 +12,7 @@ using sf::RenderWindow;
 
 int main()
 {
-    RenderWindow window(sf::VideoMode(1960, 1080), "Physics!");
-    const float fps = 60;
-    const float dt = 1/fps;
-    float accumulator = 0;
+    RenderWindow window(sf::VideoMode(2500, 1500), "Physics!");
 
     vector<Graphics> items;
     vector<RigidBody*> bodies;
@@ -31,14 +28,14 @@ int main()
     Texture box;
     box.loadFromFile("./assets/boxSprite.png");
 
-    int mass[10] = {5000000,100000000,5000000,5000000,5000000, 100000,100000,100000,100000,100000};
+    int mass[10] = {1,100000000,5000000,5000000,5000000, 100000,100000,100000,100000,100000};
     for(int i = 0; i < 2; i++){
         Material* iron = new Material(mass[i], 0.05);
         ShapeBody* shape = new Rectangle(10,10, *iron);
 
         shape->SetMass(mass[i]);
         RigidBody* object = new RigidBody(shape);
-        object->position_.Reset(i*1960/2, 1080/2);
+        object->position_.Reset(i*2500/2, 1500/2*i);
         Graphics* game_item = new Graphics(box, object);
         game_item->sprite_.setScale(.5,.5);
         game_item->sprite_.scale(.25,.25);
@@ -49,8 +46,14 @@ int main()
         bodies.push_back(object);
     }
 
+    Clock clock;
+
     while (window.isOpen())
     {
+        Time time = clock.getElapsedTime();
+        float dt = time.asSeconds();
+        clock.restart();
+
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -79,8 +82,8 @@ int main()
 
         for(int i = 0; i < bodies.size(); i++){
             for(int j = 0; j < bodies.size(); j++){
-                if(abs(bodies.at(0)->velocity_.GetX()) > .001 || abs(bodies.at(0)->velocity_.GetY()) > 0.01)
-                    bodies.at(i)->AddDrag(.01);
+                //if(abs(bodies.at(0)->velocity_.GetX()) > .001 || abs(bodies.at(0)->velocity_.GetY()) > 0.01)
+                    //bodies.at(i)->AddDrag(.001);
                 bodies.at(i)->AddGravitational(bodies.at(j));
             }
         }
@@ -89,7 +92,7 @@ int main()
             bodies.at(i)->UpdatePhysics(dt);
 
             //Looping around the screen
-            if(bodies.at(i)->GetPosition().GetX() < 0){
+            /*if(bodies.at(i)->GetPosition().GetX() < 0){
                 bodies.at(i)->SetX(1959);
             }
             else if(bodies.at(i)->GetPosition().GetX() > 1960){
@@ -100,7 +103,7 @@ int main()
             }
             else if(bodies.at(i)->GetPosition().GetY() > 1080){
                 bodies.at(i)->SetY(1);
-            }
+            }*/
             items.at(i).SetPosition(bodies.at(i)->GetPosition());
             items.at(i).sprite_.setRotation(items.at(i).sprite_.getRotation() + .01);
             window.draw(items.at(i).sprite_);
