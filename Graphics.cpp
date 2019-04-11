@@ -13,3 +13,8 @@ Graphics::Graphics(Texture texture) {
 void Graphics::SetPosition(Vec2 pos) {
     sprite_.setPosition(pos.GetX(),pos.GetY());
 }
+
+Sprite* Graphics::GetSprite() {
+    Sprite* ptr = &sprite_;
+    return ptr;
+}

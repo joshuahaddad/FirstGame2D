@@ -15,6 +15,7 @@ public:
 public:
     Graphics(Texture texture);
     void SetPosition(Vec2 pos);
+    Sprite* GetSprite();
 };
 
 

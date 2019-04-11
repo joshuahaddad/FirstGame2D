@@ -121,3 +121,8 @@ float RigidBody::Distance(RigidBody *partner) {
 ShapeBody *RigidBody::GetShape() {
     return shape_;
 }
+
+Vec2* RigidBody::GetPositionPointer() {
+    Vec2* ptr = &position_;
+    return ptr;
+}

@@ -46,6 +46,7 @@ public:
     void SetTorque(float torque);
 
     Vec2 GetPosition();
+    Vec2* GetPositionPointer();
     ShapeBody* GetShape();
 };
 

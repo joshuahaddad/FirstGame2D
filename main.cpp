@@ -122,7 +122,7 @@ int main()
             window.draw(*items.at(i).GetSprite());
         }
 
-        git c
+        vector_test.UpdatePosition();
         window.draw(*vector_test.arrow_.GetSprite());
         window.display();
 
