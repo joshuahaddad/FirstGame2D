@@ -19,16 +19,26 @@ int main()
 
     vector<Graphics> items;
     vector<RigidBody*> bodies;
-    Material iron(1, 0.05);
-    Rectangle square(10,10, iron);
-    ShapeBody* shape = &square;
+
+    Texture space;
+    space.loadFromFile("./assets/stars.png");
+    Sprite background;
+    background.setTexture(space);
+    background.setScale(1,1);
+    background.scale(2.1,2.2);
+
 
     Texture box;
     box.loadFromFile("./assets/boxSprite.png");
 
-    for(int i = 0; i < 5; i++){
+    int mass[10] = {5000000,100000000,5000000,5000000,5000000, 100000,100000,100000,100000,100000};
+    for(int i = 0; i < 2; i++){
+        Material* iron = new Material(mass[i], 0.05);
+        ShapeBody* shape = new Rectangle(10,10, *iron);
+
+        shape->SetMass(mass[i]);
         RigidBody* object = new RigidBody(shape);
-        object->position_.Reset(1960/2 + i * 400, 1080/2 +i * 200);
+        object->position_.Reset(i*1960/2, 1080/2);
         Graphics* game_item = new Graphics(box, object);
         game_item->sprite_.setScale(.5,.5);
         game_item->sprite_.scale(.25,.25);
@@ -39,12 +49,8 @@ int main()
         bodies.push_back(object);
     }
 
-
-    float i = 0;
-
     while (window.isOpen())
     {
-
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -65,13 +71,16 @@ int main()
             }
         }
 
-        if(abs(bodies.at(0)->net_force_.GetX()) > .001 || abs(bodies.at(0)->net_force_.GetY()) > 0.01)
-            bodies.at(0)->AddDrag(.01);
+        //if(abs(bodies.at(0)->net_force_.GetX()) > .001 || abs(bodies.at(0)->net_force_.GetY()) > 0.01)
+
 
         window.clear(Color(0,0,0));
+        window.draw(background);
 
         for(int i = 0; i < bodies.size(); i++){
             for(int j = 0; j < bodies.size(); j++){
+                if(abs(bodies.at(0)->velocity_.GetX()) > .001 || abs(bodies.at(0)->velocity_.GetY()) > 0.01)
+                    bodies.at(i)->AddDrag(.01);
                 bodies.at(i)->AddGravitational(bodies.at(j));
             }
         }
@@ -98,7 +107,6 @@ int main()
         }
 
         window.display();
-        i += 1;
 
     }
 

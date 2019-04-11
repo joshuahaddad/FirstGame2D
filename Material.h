@@ -14,6 +14,7 @@ public:
     Material(float, float);
     float GetDensity();
     float GetRestitution();
+    void SetDensity(float density);
 
 };
 

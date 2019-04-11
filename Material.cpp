@@ -21,3 +21,8 @@ Material::Material() {
     density_ = 0;
     restitution_ = 0;
 }
+
+void Material::SetDensity(float density) {
+    density_ = density;
+
+}

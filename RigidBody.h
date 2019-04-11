@@ -49,3 +49,7 @@ public:
     ShapeBody* GetShape();
 };
 
+class ChargedBody : public RigidBody{
+
+};
+

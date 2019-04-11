@@ -64,7 +64,7 @@ float ShapeBody::GetInvInertia() {
 }
 
 void ShapeBody::SetMass(float value) {
-    mass_information_.mass_ = value;
-    mass_information_.inv_mass_ = 1/value;
+    material_.SetDensity(value);
+    UpdateMassInfo();
 }
 

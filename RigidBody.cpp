@@ -89,7 +89,7 @@ void RigidBody::SetY(float y) {
 }
 
 void RigidBody::AddGravitational(RigidBody* partner) {
-    const float G = 6.67408 * pow(10, -11);
+    const float G = 6.67408 * pow(10, -9);
     float r_squared = pow(Distance(partner), 2);
     float m1 = shape_->GetMass();
     float m2 = partner->GetShape()->GetMass();
@@ -104,8 +104,10 @@ void RigidBody::AddGravitational(RigidBody* partner) {
         x = direction.GetX()/direction.GetMagnitude();
     if(direction.GetY() != 0)
         y = direction.GetY()/direction.GetMagnitude();
+    if(r_squared == 0)
+        force_magnitude = 0;
 
-    AddForce(Vec2(-x,-y));
+    AddForce(Vec2(-x*force_magnitude,-y * force_magnitude));
 
 
 }
