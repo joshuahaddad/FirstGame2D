@@ -60,17 +60,17 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
             if(sf::Keyboard::isKeyPressed(Keyboard::D)){
-                bodies.at(0)->AddForce(Vec2(300.f,0));
+                bodies.at(0)->AddForce(Vec2(30.f,0));
             }
             if(sf::Keyboard::isKeyPressed(Keyboard::A)){
-                bodies.at(0)->AddForce(Vec2(-300.f,0));
+                bodies.at(0)->AddForce(Vec2(-30.f,0));
 
             }
             if(sf::Keyboard::isKeyPressed(Keyboard::S)){
-                bodies.at(0)->AddForce(Vec2(0,300.f));
+                bodies.at(0)->AddForce(Vec2(0,30.f));
             }
             if(sf::Keyboard::isKeyPressed(Keyboard::W)){
-                bodies.at(0)->AddForce(Vec2(0,-300.f));
+                bodies.at(0)->AddForce(Vec2(0,-30.f));
             }
         }
 
