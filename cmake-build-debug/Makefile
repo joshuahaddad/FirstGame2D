@@ -123,6 +123,33 @@ SimpleGame/fast:
 	$(MAKE) -f CMakeFiles/SimpleGame.dir/build.make CMakeFiles/SimpleGame.dir/build
 .PHONY : SimpleGame/fast
 
+Force.o: Force.cpp.o
+
+.PHONY : Force.o
+
+# target to build an object file
+Force.cpp.o:
+	$(MAKE) -f CMakeFiles/SimpleGame.dir/build.make CMakeFiles/SimpleGame.dir/Force.cpp.o
+.PHONY : Force.cpp.o
+
+Force.i: Force.cpp.i
+
+.PHONY : Force.i
+
+# target to preprocess a source file
+Force.cpp.i:
+	$(MAKE) -f CMakeFiles/SimpleGame.dir/build.make CMakeFiles/SimpleGame.dir/Force.cpp.i
+.PHONY : Force.cpp.i
+
+Force.s: Force.cpp.s
+
+.PHONY : Force.s
+
+# target to generate assembly for a file
+Force.cpp.s:
+	$(MAKE) -f CMakeFiles/SimpleGame.dir/build.make CMakeFiles/SimpleGame.dir/Force.cpp.s
+.PHONY : Force.cpp.s
+
 Graphics.o: Graphics.cpp.o
 
 .PHONY : Graphics.o
@@ -321,6 +348,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... SimpleGame"
+	@echo "... Force.o"
+	@echo "... Force.i"
+	@echo "... Force.s"
 	@echo "... Graphics.o"
 	@echo "... Graphics.i"
 	@echo "... Graphics.s"

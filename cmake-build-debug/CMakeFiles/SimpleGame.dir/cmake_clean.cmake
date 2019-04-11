@@ -6,6 +6,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/SimpleGame.dir/Shape.cpp.o"
   "CMakeFiles/SimpleGame.dir/Material.cpp.o"
   "CMakeFiles/SimpleGame.dir/Graphics.cpp.o"
+  "CMakeFiles/SimpleGame.dir/Force.cpp.o"
   "../SimpleGame.pdb"
   "../SimpleGame"
 )

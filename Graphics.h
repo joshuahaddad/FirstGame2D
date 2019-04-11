@@ -13,7 +13,7 @@ public:
     Texture texture_;
 
 public:
-    Graphics(Texture texture, RigidBody* body);
+    Graphics(Texture texture);
     void SetPosition(Vec2 pos);
 };
 

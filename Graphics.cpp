@@ -4,7 +4,7 @@
 
 #include "Graphics.h"
 
-Graphics::Graphics(Texture texture, RigidBody *body) {
+Graphics::Graphics(Texture texture) {
     texture_ = texture;
     sprite_.setTexture(texture_);
 

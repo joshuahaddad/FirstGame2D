@@ -4,7 +4,7 @@ project(SimpleGame)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp Physics.cpp Physics.h Vec2.cpp Vec2.h RigidBody.cpp RigidBody.h Shape.cpp Shape.h Material.cpp Material.h Graphics.cpp Graphics.h)
+set(SOURCE_FILES main.cpp Physics.cpp Physics.h Vec2.cpp Vec2.h RigidBody.cpp RigidBody.h Shape.cpp Shape.h Material.cpp Material.h Graphics.cpp Graphics.h Force.cpp Force.h)
 add_executable(SimpleGame ${SOURCE_FILES})
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
