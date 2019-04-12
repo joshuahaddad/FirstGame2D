@@ -231,6 +231,33 @@ Physics.cpp.s:
 	$(MAKE) -f CMakeFiles/SimpleGame.dir/build.make CMakeFiles/SimpleGame.dir/Physics.cpp.s
 .PHONY : Physics.cpp.s
 
+ResourceManager.o: ResourceManager.cpp.o
+
+.PHONY : ResourceManager.o
+
+# target to build an object file
+ResourceManager.cpp.o:
+	$(MAKE) -f CMakeFiles/SimpleGame.dir/build.make CMakeFiles/SimpleGame.dir/ResourceManager.cpp.o
+.PHONY : ResourceManager.cpp.o
+
+ResourceManager.i: ResourceManager.cpp.i
+
+.PHONY : ResourceManager.i
+
+# target to preprocess a source file
+ResourceManager.cpp.i:
+	$(MAKE) -f CMakeFiles/SimpleGame.dir/build.make CMakeFiles/SimpleGame.dir/ResourceManager.cpp.i
+.PHONY : ResourceManager.cpp.i
+
+ResourceManager.s: ResourceManager.cpp.s
+
+.PHONY : ResourceManager.s
+
+# target to generate assembly for a file
+ResourceManager.cpp.s:
+	$(MAKE) -f CMakeFiles/SimpleGame.dir/build.make CMakeFiles/SimpleGame.dir/ResourceManager.cpp.s
+.PHONY : ResourceManager.cpp.s
+
 RigidBody.o: RigidBody.cpp.o
 
 .PHONY : RigidBody.o
@@ -360,6 +387,9 @@ help:
 	@echo "... Physics.o"
 	@echo "... Physics.i"
 	@echo "... Physics.s"
+	@echo "... ResourceManager.o"
+	@echo "... ResourceManager.i"
+	@echo "... ResourceManager.s"
 	@echo "... RigidBody.o"
 	@echo "... RigidBody.i"
 	@echo "... RigidBody.s"

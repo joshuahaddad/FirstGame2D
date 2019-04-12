@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/Users/joshuahaddad/CLionProjects/SimpleGame/Force.cpp
-Force.h
-/Users/joshuahaddad/CLionProjects/SimpleGame/Force.h
-
 /Users/joshuahaddad/CLionProjects/SimpleGame/Force.h
 Vec2.h
 /Users/joshuahaddad/CLionProjects/SimpleGame/Vec2.h
@@ -21,8 +17,8 @@ iostream
 -
 SFML/Graphics.hpp
 -
-RigidBody.h
-/Users/joshuahaddad/CLionProjects/SimpleGame/RigidBody.h
+Vec2.h
+/Users/joshuahaddad/CLionProjects/SimpleGame/Vec2.h
 
 /Users/joshuahaddad/CLionProjects/SimpleGame/Material.h
 
@@ -31,6 +27,10 @@ Shape.h
 /Users/joshuahaddad/CLionProjects/SimpleGame/Shape.h
 Vec2.h
 /Users/joshuahaddad/CLionProjects/SimpleGame/Vec2.h
+Force.h
+/Users/joshuahaddad/CLionProjects/SimpleGame/Force.h
+vector
+-
 
 /Users/joshuahaddad/CLionProjects/SimpleGame/Shape.h
 iostream

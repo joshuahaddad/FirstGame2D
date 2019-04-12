@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/joshuahaddad/CLionProjects/SimpleGame/Graphics.cpp" "/Users/joshuahaddad/CLionProjects/SimpleGame/cmake-build-debug/CMakeFiles/SimpleGame.dir/Graphics.cpp.o"
   "/Users/joshuahaddad/CLionProjects/SimpleGame/Material.cpp" "/Users/joshuahaddad/CLionProjects/SimpleGame/cmake-build-debug/CMakeFiles/SimpleGame.dir/Material.cpp.o"
   "/Users/joshuahaddad/CLionProjects/SimpleGame/Physics.cpp" "/Users/joshuahaddad/CLionProjects/SimpleGame/cmake-build-debug/CMakeFiles/SimpleGame.dir/Physics.cpp.o"
+  "/Users/joshuahaddad/CLionProjects/SimpleGame/ResourceManager.cpp" "/Users/joshuahaddad/CLionProjects/SimpleGame/cmake-build-debug/CMakeFiles/SimpleGame.dir/ResourceManager.cpp.o"
   "/Users/joshuahaddad/CLionProjects/SimpleGame/RigidBody.cpp" "/Users/joshuahaddad/CLionProjects/SimpleGame/cmake-build-debug/CMakeFiles/SimpleGame.dir/RigidBody.cpp.o"
   "/Users/joshuahaddad/CLionProjects/SimpleGame/Shape.cpp" "/Users/joshuahaddad/CLionProjects/SimpleGame/cmake-build-debug/CMakeFiles/SimpleGame.dir/Shape.cpp.o"
   "/Users/joshuahaddad/CLionProjects/SimpleGame/Vec2.cpp" "/Users/joshuahaddad/CLionProjects/SimpleGame/cmake-build-debug/CMakeFiles/SimpleGame.dir/Vec2.cpp.o"

@@ -1,10 +1,11 @@
 //
 // Created by JOSHUA HADDAD on 2019-04-10.
 //
-
 #include "RigidBody.h"
 
 RigidBody::RigidBody(ShapeBody* shape) {
+
+    vector<Force> all_forces_;
     net_force_ = Vec2();
 
     shape_ = shape;
@@ -25,6 +26,7 @@ void RigidBody::UpdatePhysics(float dt) {
     float max_speed = 30;
 
     //Calculate new acceleration and velocity
+    CalculateNetForce();
     Vec2 force = net_force_*shape_->GetInvMass();
     acceleration_ += force;
     velocity_ += acceleration_*(dt*1000);
@@ -40,6 +42,7 @@ void RigidBody::UpdatePhysics(float dt) {
     //Calculate rotation
 
     //Set force = 0 and acceleration to 0;
+    forces_.clear();
     net_force_.Reset(0,0);
     acceleration_.Reset(0,0);
 }
@@ -64,8 +67,8 @@ void RigidBody::SetTorque(float torque) {
     torque_ = torque;
 }
 
-void RigidBody::AddForce(Vec2 force) {
-    net_force_ += force;
+void RigidBody::AddForce(Force& force) {
+    forces_.push_back(force);
 }
 
 Vec2 RigidBody::GetPosition() {
@@ -76,7 +79,7 @@ void RigidBody::AddDrag(float scale_factor) {
     float drag = scale_factor*velocity_.GetMagnitude() * velocity_.GetMagnitude() / 2 * shape_->GetArea();
     Vec2 direction = Vec2(-velocity_.GetXDir(), -velocity_.GetYDir());
     Vec2 drag_force = direction * drag;
-    AddForce(drag_force);
+    //AddForce(drag_force);
 
 }
 
@@ -89,27 +92,8 @@ void RigidBody::SetY(float y) {
 }
 
 void RigidBody::AddGravitational(RigidBody* partner) {
-    const float G = 6.67408 * pow(10, -8);
-    float r_squared = pow(Distance(partner), 2);
-    float m1 = shape_->GetMass();
-    float m2 = partner->GetShape()->GetMass();
-    float force_magnitude = m1*m2*G/r_squared;
-
-    Vec2 pos_one = GetPosition();
-    Vec2 pos_two = partner->GetPosition();
-    Vec2 direction = pos_one.Direction(pos_two);
-    float x = 0;
-    float y = 0;
-    if(direction.GetX() != 0)
-        x = direction.GetX()/direction.GetMagnitude();
-    if(direction.GetY() != 0)
-        y = direction.GetY()/direction.GetMagnitude();
-    if(r_squared == 0)
-        force_magnitude = 0;
-
-    AddForce(Vec2(-x*force_magnitude,-y * force_magnitude));
-
-
+    Force gravity = Force::Gravity(shape_->GetMass(), partner->shape_->GetMass(), position_, partner->GetPosition());
+    AddForce(gravity);
 }
 
 float RigidBody::Distance(RigidBody *partner) {
@@ -125,4 +109,10 @@ ShapeBody *RigidBody::GetShape() {
 Vec2* RigidBody::GetPositionPointer() {
     Vec2* ptr = &position_;
     return ptr;
+}
+
+void RigidBody::CalculateNetForce() {
+    for(int i = 0; i < forces_.size(); i++){
+        net_force_ += forces_.at(i).GetForce();
+    }
 }

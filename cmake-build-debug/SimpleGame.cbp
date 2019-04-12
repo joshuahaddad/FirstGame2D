@@ -104,6 +104,12 @@
 		<Unit filename="/Users/joshuahaddad/CLionProjects/SimpleGame/Physics.h">
 			<Option target="SimpleGame"/>
 		</Unit>
+		<Unit filename="/Users/joshuahaddad/CLionProjects/SimpleGame/ResourceManager.cpp">
+			<Option target="SimpleGame"/>
+		</Unit>
+		<Unit filename="/Users/joshuahaddad/CLionProjects/SimpleGame/ResourceManager.h">
+			<Option target="SimpleGame"/>
+		</Unit>
 		<Unit filename="/Users/joshuahaddad/CLionProjects/SimpleGame/RigidBody.cpp">
 			<Option target="SimpleGame"/>
 		</Unit>

@@ -1,6 +1,8 @@
+#pragma once
+
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "RigidBody.h"
+#include "Vec2.h"
 
 using namespace std;
 using namespace sf;

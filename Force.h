@@ -1,20 +1,21 @@
 //
 // Created by JOSHUA HADDAD on 2019-04-11.
 //
+#pragma once
 
 #include "Vec2.h"
-#include "Graphics.h"
-
 
 class Force {
     Vec2 force_;
-    Vec2* position_;
 
 public:
-    Graphics arrow_;
-    Force(Vec2 force_, Texture vector_texture_);
+    Force(Vec2 force_);
     void SetPosition(Vec2* position);
-    void UpdatePosition();
+    void SetOrientation(float degrees);
+    Vec2 GetForce();
+    static Force Gravity(float mass_one, float mass_two, Vec2 position_one, Vec2 position_two);
+    static Force Drag(Vec2 velocity, float area, float coeffcient);
+
 };
 
 

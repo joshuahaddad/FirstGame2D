@@ -70,11 +70,11 @@ Vec2 Vec2::operator*(float scalar) {
     return Vec2(x_*scalar, y_*scalar);
 }
 
-float Vec2::GetX() {
+float Vec2::GetX() const{
     return x_;
 }
 
-float Vec2::GetY() {
+float Vec2::GetY() const{
     return y_;
 }
 
@@ -109,5 +109,11 @@ void Vec2::SetX(float x) {
 Vec2 Vec2::Direction(Vec2 &partner) {
     return Vec2(x_ - partner.x_, y_ - partner.y_);
 }
+
+float Vec2::Distance(const Vec2 &pos_one, const Vec2& pos_two) {
+    return sqrt(pow((pos_one.GetX()-pos_two.GetX()),2) + pow((pos_two.GetY()-pos_two.GetY()),2));
+}
+
+
 
 

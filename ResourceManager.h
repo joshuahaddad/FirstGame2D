@@ -1,0 +1,14 @@
+//
+// Created by JOSHUA HADDAD on 2019-04-12.
+//
+
+#ifndef SIMPLEGAME_RESOURCEMANAGER_H
+#define SIMPLEGAME_RESOURCEMANAGER_H
+
+
+class ResourceManager {
+
+};
+
+
+#endif //SIMPLEGAME_RESOURCEMANAGER_H

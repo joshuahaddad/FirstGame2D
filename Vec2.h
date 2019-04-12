@@ -25,8 +25,8 @@ public:
     Vec2 Cross(const Vec2& lhs, float rhs);
     Vec2 Cross(float lhs, const Vec2& rhs);
     float Dot(const Vec2& rhs);
-    float GetX();
-    float GetY();
+    float GetX() const;
+    float GetY() const;
     float GetMagnitude();
     float GetXDir();
     float GetYDir();
@@ -34,6 +34,8 @@ public:
     void SetY(float y);
     void SetX(float x);
     Vec2 Direction(Vec2& partner);
+
+    static float Distance(const Vec2& pos_one, const Vec2& pos_two);
 
 };
 

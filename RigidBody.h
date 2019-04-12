@@ -5,6 +5,10 @@
 #pragma once
 #include "Shape.h"
 #include "Vec2.h"
+#include "Force.h"
+#include <vector>
+
+using std::vector;
 
 
 class RigidBody {
@@ -12,6 +16,7 @@ public:
     ShapeBody* shape_;
 
     //Forces
+    vector<Force> forces_;
     Vec2 net_force_;
 
     //Linear
@@ -29,7 +34,8 @@ public:
     void UpdatePhysics(float dt);
 
     //Forces
-    void AddForce(Vec2 force);
+    void CalculateNetForce();
+    void AddForce(Force& force);
     void AddDrag(float scale_factor);
     void AddGravitational(RigidBody* partner);
 

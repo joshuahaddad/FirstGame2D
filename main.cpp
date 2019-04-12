@@ -32,13 +32,13 @@ int main()
     Graphics arrows(force_arrow);
 
     //Testing force display
-    Force vector_test(Vec2(512,512), force_arrow);
+    Force vector_test(Vec2(512,512));
 
 
     Texture box;
     box.loadFromFile("./assets/boxSprite.png");
 
-    int mass[10] = {10,100000000,5000000,5000000,5000000, 100000,100000,100000,100000,100000};
+    int mass[10] = {10,1000,5000000,5000000,5000000, 100000,100000,100000,100000,100000};
     for(int i = 0; i < 2; i++){
         Material* iron = new Material(mass[i], 0.05);
         ShapeBody* shape = new Rectangle(10,10, *iron);
@@ -73,18 +73,27 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+
         if(sf::Keyboard::isKeyPressed(Keyboard::D)){
-            bodies.at(0)->AddForce(Vec2(3.f,0));
+            Vec2 forcevector(30.f, 0);
+            Force force(forcevector);
+            bodies.at(0)->AddForce(force);
         }
         if(sf::Keyboard::isKeyPressed(Keyboard::A)){
-            bodies.at(0)->AddForce(Vec2(-3.f,0));
+            Vec2 forcevector(-30.f, 0);
+            Force force(forcevector);
+            bodies.at(0)->AddForce(force);
 
         }
         if(sf::Keyboard::isKeyPressed(Keyboard::S)){
-            bodies.at(0)->AddForce(Vec2(0,3.f));
+            Vec2 forcevector(0, 30.f);
+            Force force(forcevector);
+            bodies.at(0)->AddForce(force);
         }
         if(sf::Keyboard::isKeyPressed(Keyboard::W)){
-            bodies.at(0)->AddForce(Vec2(0,-3.f));
+            Vec2 forcevector(0, -30.f);
+            Force force(forcevector);
+            bodies.at(0)->AddForce(force);
         }
 
         //if(abs(bodies.at(0)->net_force_.GetX()) > .001 || abs(bodies.at(0)->net_force_.GetY()) > 0.01)
@@ -122,8 +131,7 @@ int main()
             window.draw(*items.at(i).GetSprite());
         }
 
-        vector_test.UpdatePosition();
-        window.draw(*vector_test.arrow_.GetSprite());
+        vector_test.SetOrientation(0);
         window.display();
 
     }
