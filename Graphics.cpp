@@ -5,9 +5,12 @@
 #include "Graphics.h"
 
 Graphics::Graphics(Texture texture) {
-    texture_ = texture;
-    sprite_.setTexture(texture_);
+    sprite_.setTexture(texture);
 
+}
+
+Graphics::Graphics(Texture* tex){
+    sprite_.setTexture(*tex);
 }
 
 void Graphics::SetPosition(Vec2 pos) {
@@ -17,4 +20,16 @@ void Graphics::SetPosition(Vec2 pos) {
 Sprite* Graphics::GetSprite() {
     Sprite* ptr = &sprite_;
     return ptr;
+}
+
+void Graphics::SetOrientation(float angle) {
+    sprite_.setRotation(angle);
+}
+
+void Graphics::SetOrigin(Vec2 origin){
+    sprite_.setOrigin(origin.GetX(), origin.GetY());
+}
+
+void Graphics::SetScale(float x, float y) {
+    sprite_.setScale(x,y);
 }

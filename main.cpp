@@ -6,6 +6,7 @@
 #include "RigidBody.h"
 #include "Vec2.h"
 #include "Force.h"
+#include "ResourceManager.h"
 #include <math.h>
 
 using namespace std;
@@ -13,51 +14,49 @@ using sf::RenderWindow;
 
 int main()
 {
+    ResourceManager resources;
+    resources.AddTexture("stars", "./assets/stars.png");
+    resources.AddTexture("vector" , "./assets/vector.png");
+    resources.AddTexture("box", "./assets/boxSprite.png");
+
     RenderWindow window(sf::VideoMode(2500, 1500), "Physics!");
 
     vector<Graphics> items;
-    vector<RigidBody*> bodies;
+    vector<RigidBody> bodies;
 
     //Loading space texture and scaling to fit the screen
     Texture space;
     space.loadFromFile("./assets/stars.png");
     Sprite background;
-    background.setTexture(space);
+    background.setTexture(*resources.GetTexture("stars"));
     background.setScale(1,1);
     background.scale(2.1,2.2);
 
-    //Loading the force arrow texture for use later
-    Texture force_arrow;
-    force_arrow.loadFromFile("./assets/vector.png");
-    Graphics arrows(force_arrow);
 
     //Testing force display
-    Force vector_test(Vec2(512,512));
+    vector<Graphics> force_vectors;
 
 
-    Texture box;
-    box.loadFromFile("./assets/boxSprite.png");
-
-    int mass[10] = {10,1000,5000000,5000000,5000000, 100000,100000,100000,100000,100000};
+    int mass[10] = {10,10000000,5000000,5000000,5000000, 100000,100000,100000,100000,100000};
     for(int i = 0; i < 2; i++){
         Material* iron = new Material(mass[i], 0.05);
         ShapeBody* shape = new Rectangle(10,10, *iron);
 
         shape->SetMass(mass[i]);
-        RigidBody* object = new RigidBody(shape);
-        object->position_.Reset(i*2500/2, 1500/2*i);
+        RigidBody object = RigidBody(shape);
+        object.position_.Reset(i*2500/2, 1500/2*i);
 
-        Graphics* game_item = new Graphics(box);
-        game_item->GetSprite()->setScale(.5,.5);
-        game_item->GetSprite()->scale(.25,.25);
-        game_item->GetSprite()->setOrigin(502/2,502/2);
-        game_item->GetSprite()->setPosition(1960/2 + i * 400,1080/2 +i * 200);
+        Graphics game_item = Graphics(resources.GetTexture("box"));
+        game_item.GetSprite()->setScale(.5,.5);
+        game_item.GetSprite()->scale(.25,.25);
+        game_item.GetSprite()->setOrigin(502/2,502/2);
+        game_item.GetSprite()->setPosition(1960/2 + i * 400,1080/2 +i * 200);
 
-        items.push_back(*game_item);
+        items.push_back(game_item);
         bodies.push_back(object);
     }
 
-    vector_test.SetPosition(bodies.at(0)->GetPositionPointer());
+    //vector_test.SetPosition(bodies.at(0)->GetPositionPointer());
 
     Clock clock;
 
@@ -74,44 +73,70 @@ int main()
                 window.close();
         }
 
+        if(sf::Keyboard::isKeyPressed(Keyboard::Space)){
+            bodies.at(0).SetVelocity(0,0);
+            bodies.at(0).SetAcceleration(Vec2(0,0));
+        }
         if(sf::Keyboard::isKeyPressed(Keyboard::D)){
-            Vec2 forcevector(30.f, 0);
+            Vec2 forcevector(3000.f, 0);
             Force force(forcevector);
-            bodies.at(0)->AddForce(force);
+            bodies.at(0).AddForce(force);
         }
         if(sf::Keyboard::isKeyPressed(Keyboard::A)){
-            Vec2 forcevector(-30.f, 0);
+            Vec2 forcevector(-3000.f, 0);
             Force force(forcevector);
-            bodies.at(0)->AddForce(force);
+            bodies.at(0).AddForce(force);
 
         }
         if(sf::Keyboard::isKeyPressed(Keyboard::S)){
-            Vec2 forcevector(0, 30.f);
+            Vec2 forcevector(0, 3000.f);
             Force force(forcevector);
-            bodies.at(0)->AddForce(force);
+            bodies.at(0).AddForce(force);
         }
         if(sf::Keyboard::isKeyPressed(Keyboard::W)){
-            Vec2 forcevector(0, -30.f);
+            Vec2 forcevector(0, -3000.f);
             Force force(forcevector);
-            bodies.at(0)->AddForce(force);
+            bodies.at(0).AddForce(force);
         }
 
-        //if(abs(bodies.at(0)->net_force_.GetX()) > .001 || abs(bodies.at(0)->net_force_.GetY()) > 0.01)
 
 
         window.clear(Color(255,255,255));
         window.draw(background);
 
+        //Rigid body to rigid body interactions
         for(int i = 0; i < bodies.size(); i++){
             for(int j = 0; j < bodies.size(); j++){
                 //if(abs(bodies.at(0)->velocity_.GetX()) > .001 || abs(bodies.at(0)->velocity_.GetY()) > 0.01)
                     //bodies.at(i)->AddDrag(.0001);
-                bodies.at(i)->AddGravitational(bodies.at(j));
+                    if(i == j){
+                        continue;
+                    }
+                bodies.at(i).AddGravitational(bodies.at(j));
             }
         }
 
+        //Interactions involving one rigid body
         for(int i = 0; i < bodies.size(); i++){
-            bodies.at(i)->UpdatePhysics(dt);
+
+            //Get force arrows
+            for(Force force : bodies.at(i).GetForces()){
+                Graphics* arrow = new Graphics(resources.GetTexture("vector"));
+                arrow->SetScale(.25,1);
+                arrow->SetOrigin(Vec2(512/2,0));
+                arrow->SetPosition(bodies.at(i).GetPosition());
+                arrow->SetOrientation(270+force.GetAngle());
+                force_vectors.push_back(*arrow);
+            }
+
+            //Draw force arrows
+            for(Graphics x : force_vectors){
+                window.draw(*x.GetSprite());
+            }
+
+            //Update physics
+            bodies.at(i).UpdatePhysics(dt);
+
 
             //Looping around the screen
             /*if(bodies.at(i)->GetPosition().GetX() < 0){
@@ -126,12 +151,12 @@ int main()
             else if(bodies.at(i)->GetPosition().GetY() > 1080){
                 bodies.at(i)->SetY(1);
             }*/
-            items.at(i).SetPosition(bodies.at(i)->GetPosition());
+            items.at(i).SetPosition(bodies.at(i).GetPosition());
             items.at(i).GetSprite()->setRotation(items.at(i).GetSprite()->getRotation() + .01);
             window.draw(*items.at(i).GetSprite());
+            force_vectors.clear();
         }
 
-        vector_test.SetOrientation(0);
         window.display();
 
     }

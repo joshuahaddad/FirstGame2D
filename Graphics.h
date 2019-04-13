@@ -16,8 +16,12 @@ public:
 
 public:
     Graphics(Texture texture);
+    Graphics(Texture* tex);
     void SetPosition(Vec2 pos);
     Sprite* GetSprite();
+    void SetOrientation(float angle);
+    void SetOrigin(Vec2);
+    void SetScale(float x, float y);
 };
 
 

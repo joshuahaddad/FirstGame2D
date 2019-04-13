@@ -29,7 +29,7 @@ void RigidBody::UpdatePhysics(float dt) {
     CalculateNetForce();
     Vec2 force = net_force_*shape_->GetInvMass();
     acceleration_ += force;
-    velocity_ += acceleration_*(dt*1000);
+    velocity_ += acceleration_*(dt*100);
     position_ += velocity_*(dt*5);
 
     if(abs(velocity_.GetX()) > max_speed){
@@ -48,11 +48,11 @@ void RigidBody::UpdatePhysics(float dt) {
 }
 
 void RigidBody::SetVelocity(float x, float y) {
-    velocity_ = Vec2(x,y);
+    velocity_.Reset(x,y);
 }
 
 void RigidBody::SetAcceleration(Vec2 a) {
-    acceleration_ = a;
+    acceleration_.Reset(a.GetX(), a.GetY());
 }
 
 void RigidBody::SetOrientation(float radians) {
@@ -76,10 +76,8 @@ Vec2 RigidBody::GetPosition() {
 }
 
 void RigidBody::AddDrag(float scale_factor) {
-    float drag = scale_factor*velocity_.GetMagnitude() * velocity_.GetMagnitude() / 2 * shape_->GetArea();
-    Vec2 direction = Vec2(-velocity_.GetXDir(), -velocity_.GetYDir());
-    Vec2 drag_force = direction * drag;
-    //AddForce(drag_force);
+    Force drag_force = Force::Drag(velocity_, shape_->GetArea(), scale_factor);
+    AddForce(drag_force);
 
 }
 
@@ -91,15 +89,9 @@ void RigidBody::SetY(float y) {
     position_.SetY(y);
 }
 
-void RigidBody::AddGravitational(RigidBody* partner) {
-    Force gravity = Force::Gravity(shape_->GetMass(), partner->shape_->GetMass(), position_, partner->GetPosition());
+void RigidBody::AddGravitational(RigidBody partner) {
+    Force gravity = Force::Gravity(shape_->GetMass(), partner.shape_->GetMass(), position_, partner.GetPosition());
     AddForce(gravity);
-}
-
-float RigidBody::Distance(RigidBody *partner) {
-    float delta_x = pow(position_.GetX() - partner->position_.GetX(),2);
-    float delta_y = pow(position_.GetY() - partner->position_.GetY(),2);
-    return sqrt(delta_x+delta_y);
 }
 
 ShapeBody *RigidBody::GetShape() {
@@ -112,7 +104,11 @@ Vec2* RigidBody::GetPositionPointer() {
 }
 
 void RigidBody::CalculateNetForce() {
-    for(int i = 0; i < forces_.size(); i++){
-        net_force_ += forces_.at(i).GetForce();
+    for(Force force : forces_){
+        net_force_ += force.GetForceVector();
     }
+}
+
+vector<Force> RigidBody::GetForces() {
+    return forces_;
 }

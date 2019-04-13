@@ -16,8 +16,15 @@ Vec2::Vec2(float x, float y) {
     x_ = x;
     y_ = y;
     magnitude_ = sqrt(x*x+y*y);
-    xDir_ = abs(x/magnitude_);
-    yDir_ = abs(y/magnitude_);
+
+    if(magnitude_ == 0){
+        xDir_ = 0;
+        yDir_ = 0;
+    }
+    else{
+        xDir_ = (x/magnitude_);
+        yDir_ = (y/magnitude_);
+    }
 }
 
 bool Vec2::operator==(const Vec2 &rhs) {
@@ -55,18 +62,18 @@ Vec2 Vec2::operator=(const Vec2 &rhs) {
 void Vec2::operator+=(const Vec2 &rhs) {
     x_ += rhs.x_;
     y_ += rhs.y_;
-    if(x_ != 0 || y_ != 0){
-        magnitude_ = sqrt(x_*x_+y_*y_);
-        xDir_ = abs(x_/magnitude_);
-        yDir_ = abs(y_/magnitude_);
-    } else {
+    magnitude_ = sqrt(x_*x_+y_*y_);
+
+    if(magnitude_ == 0){
         xDir_ = 0;
         yDir_ = 0;
-        magnitude_ = 0;
+    } else {
+        xDir_ = x_/magnitude_;
+        yDir_ = y_/magnitude_;
     }
 }
 
-Vec2 Vec2::operator*(float scalar) {
+Vec2 Vec2::operator*(float scalar) const{
     return Vec2(x_*scalar, y_*scalar);
 }
 
@@ -94,8 +101,12 @@ void Vec2::Reset(float x, float y) {
     x_ = x;
     y_ = y;
     magnitude_ = sqrt(x*x+y*y);
-    xDir_ = abs(x/magnitude_);
-    yDir_ = abs(y/magnitude_);
+    xDir_ = 0;
+    yDir_ = 0;
+    if(magnitude_ != 0){
+        xDir_ = (x/magnitude_);
+        yDir_ = (y/magnitude_);
+    }
 }
 
 void Vec2::SetY(float y) {
@@ -107,7 +118,10 @@ void Vec2::SetX(float x) {
 }
 
 Vec2 Vec2::Direction(Vec2 &partner) {
-    return Vec2(x_ - partner.x_, y_ - partner.y_);
+    float x = x_ - partner.x_;
+    float y = y_ - partner.y_;
+    float mag = sqrt(x*x+y*y);
+    return Vec2(x/mag, y/mag);
 }
 
 float Vec2::Distance(const Vec2 &pos_one, const Vec2& pos_two) {

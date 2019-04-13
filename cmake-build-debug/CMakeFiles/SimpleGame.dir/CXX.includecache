@@ -9,8 +9,6 @@
 /Users/joshuahaddad/CLionProjects/SimpleGame/Force.h
 Vec2.h
 /Users/joshuahaddad/CLionProjects/SimpleGame/Vec2.h
-Graphics.h
-/Users/joshuahaddad/CLionProjects/SimpleGame/Graphics.h
 
 /Users/joshuahaddad/CLionProjects/SimpleGame/Graphics.h
 iostream
@@ -21,6 +19,18 @@ Vec2.h
 /Users/joshuahaddad/CLionProjects/SimpleGame/Vec2.h
 
 /Users/joshuahaddad/CLionProjects/SimpleGame/Material.h
+
+/Users/joshuahaddad/CLionProjects/SimpleGame/ResourceManager.h
+map
+-
+iostream
+-
+string
+-
+SFML/Graphics.hpp
+-
+vector
+-
 
 /Users/joshuahaddad/CLionProjects/SimpleGame/RigidBody.h
 Shape.h
@@ -59,6 +69,8 @@ Vec2.h
 /Users/joshuahaddad/CLionProjects/SimpleGame/Vec2.h
 Force.h
 /Users/joshuahaddad/CLionProjects/SimpleGame/Force.h
+ResourceManager.h
+/Users/joshuahaddad/CLionProjects/SimpleGame/ResourceManager.h
 math.h
 -
 

@@ -12,6 +12,7 @@ class Vec2 {
     float yDir_;
     float magnitude_;
 
+
 public:
     Vec2();
     Vec2(float, float);
@@ -19,7 +20,7 @@ public:
     Vec2 operator+ (const Vec2& rhs);
     Vec2 operator-(const Vec2& rhs);
     Vec2 operator=(const Vec2& rhs);
-    Vec2 operator*(float scalar);
+    Vec2 operator*(float scalar) const;
     void operator+=(const Vec2& rhs);
     float Cross(const Vec2& rhs);
     Vec2 Cross(const Vec2& lhs, float rhs);

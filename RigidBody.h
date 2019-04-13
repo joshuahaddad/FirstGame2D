@@ -34,13 +34,11 @@ public:
     void UpdatePhysics(float dt);
 
     //Forces
+    vector<Force> GetForces();
     void CalculateNetForce();
     void AddForce(Force& force);
     void AddDrag(float scale_factor);
-    void AddGravitational(RigidBody* partner);
-
-    //Helper Methods
-    float Distance(RigidBody* partner);
+    void AddGravitational(RigidBody partner);
 
     //Setters
     void SetX(float x);

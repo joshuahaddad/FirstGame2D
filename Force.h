@@ -12,9 +12,10 @@ public:
     Force(Vec2 force_);
     void SetPosition(Vec2* position);
     void SetOrientation(float degrees);
-    Vec2 GetForce();
+    Vec2 GetForceVector();
     static Force Gravity(float mass_one, float mass_two, Vec2 position_one, Vec2 position_two);
-    static Force Drag(Vec2 velocity, float area, float coeffcient);
+    static Force Drag(Vec2& velocity, float area, float coeffcient);
+    float GetAngle();
 
 };
 
