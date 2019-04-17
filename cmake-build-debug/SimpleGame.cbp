@@ -80,6 +80,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/joshuahaddad/CLionProjects/SimpleGame/Collision.cpp">
+			<Option target="SimpleGame"/>
+		</Unit>
+		<Unit filename="/Users/joshuahaddad/CLionProjects/SimpleGame/Collision.h">
+			<Option target="SimpleGame"/>
+		</Unit>
 		<Unit filename="/Users/joshuahaddad/CLionProjects/SimpleGame/Force.cpp">
 			<Option target="SimpleGame"/>
 		</Unit>
