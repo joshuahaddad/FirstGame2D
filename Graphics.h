@@ -22,6 +22,7 @@ public:
     void SetOrientation(float angle);
     void SetOrigin(Vec2);
     void SetScale(float x, float y);
+    void Scale(float factor);
 };
 
 

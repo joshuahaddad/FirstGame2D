@@ -3,6 +3,9 @@
 //
 
 #include "Force.h"
+#include <iostream>
+
+using namespace std;
 
 const float G = 6.67408 * pow(10, -7);
 
@@ -24,7 +27,7 @@ Force Force::Gravity(float mass_one, float mass_two, Vec2 position_one, Vec2 pos
         return {Vec2(0,0)};
 
     float magnitude = mass_one*mass_two*G/r;
-    Vec2 direction = position_one.Direction(position_two) * -1;
+    Vec2 direction = position_one.Direction(position_two);
     Vec2 force = direction * magnitude;
 
     return {force};
@@ -36,28 +39,40 @@ Force Force::Drag(Vec2& velocity, float area, float coefficient) {
     return {direction*drag};
 }
 
+//This function is kind of wonky, the quadrants weren't working out how I thought they should
 float Force::GetAngle() {
     float x = force_.GetX();
     float y = force_.GetY();
     if(x == 0 && y > 0)
         return 90;
     else if (x == 0 && y < 0)
-        return -90;
+        return 270;
     else if (y == 0 && x > 0)
         return 0;
     else if (y == 0 && x < 0)
         return 180;
 
-    //If in the second quadrant
-    if(x < 0 && y > 0){
-        return 90 + abs(atan(y/x)*180/M_PI);
-    }
-
-    //If in the third quadrant
+    //In the second quadrant
     if(x < 0 && y < 0){
-        return 180 + abs(atan(y/x)*180/M_PI);
+        return atan(y/x)*180/M_PI + 180;
     }
 
-    //If in the first or second
-    return atan(y/x)*180/M_PI;
+    //In the third quadrant
+    if(x < 0 && y > 0){
+        return 180+atan(y/x)*180/M_PI;
+    }
+
+    //In the first quadrant
+    if(x > 0 && y < 0){
+        return  -abs(atan(y/x)*180/M_PI);
+    }
+
+    //In the fourth
+    if(x > 0 && y > 0){
+        return atan(y/x)*180/M_PI;
+    }
+}
+
+float Force::GetMagnitude() {
+    return force_.GetMagnitude();
 }

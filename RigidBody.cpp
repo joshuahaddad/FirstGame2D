@@ -23,7 +23,7 @@ RigidBody::RigidBody(ShapeBody* shape) {
 
 void RigidBody::UpdatePhysics(float dt) {
     //Calculate position
-    float max_speed = 30;
+    float max_speed = 50;
 
     //Calculate new acceleration and velocity
     CalculateNetForce();
@@ -38,6 +38,7 @@ void RigidBody::UpdatePhysics(float dt) {
     if(abs(velocity_.GetY()) > max_speed){
         velocity_.GetY() > 0 ? velocity_.SetY(max_speed) : velocity_.SetY(-max_speed);
     }
+
 
     //Calculate rotation
 
@@ -111,4 +112,8 @@ void RigidBody::CalculateNetForce() {
 
 vector<Force> RigidBody::GetForces() {
     return forces_;
+}
+
+Vec2 RigidBody::GetVelocity() {
+    return velocity_;
 }

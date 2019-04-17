@@ -16,6 +16,7 @@ public:
     static Force Gravity(float mass_one, float mass_two, Vec2 position_one, Vec2 position_two);
     static Force Drag(Vec2& velocity, float area, float coeffcient);
     float GetAngle();
+    float GetMagnitude();
 
 };
 

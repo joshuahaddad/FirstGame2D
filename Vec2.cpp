@@ -110,22 +110,22 @@ void Vec2::Reset(float x, float y) {
 }
 
 void Vec2::SetY(float y) {
-    y_ = y;
+    Reset(x_, y);
 }
 
 void Vec2::SetX(float x) {
-    x_ = x;
+    Reset(x, y_);
 }
 
 Vec2 Vec2::Direction(Vec2 &partner) {
-    float x = x_ - partner.x_;
-    float y = y_ - partner.y_;
+    float x = partner.x_ - x_;
+    float y = partner.y_ - y_;
     float mag = sqrt(x*x+y*y);
     return Vec2(x/mag, y/mag);
 }
 
 float Vec2::Distance(const Vec2 &pos_one, const Vec2& pos_two) {
-    return sqrt(pow((pos_one.GetX()-pos_two.GetX()),2) + pow((pos_two.GetY()-pos_two.GetY()),2));
+    return sqrt(pow((pos_one.GetX()-pos_two.GetX()),2) + pow((pos_one.GetY()-pos_two.GetY()),2));
 }
 
 

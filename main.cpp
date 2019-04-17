@@ -19,7 +19,7 @@ int main()
     resources.AddTexture("vector" , "./assets/vector.png");
     resources.AddTexture("box", "./assets/boxSprite.png");
 
-    RenderWindow window(sf::VideoMode(2500, 1500), "Physics!");
+    RenderWindow window(sf::VideoMode(1980, 1080), "Physics!");
 
     vector<Graphics> items;
     vector<RigidBody> bodies;
@@ -44,13 +44,13 @@ int main()
 
         shape->SetMass(mass[i]);
         RigidBody object = RigidBody(shape);
-        object.position_.Reset(i*2500/2, 1500/2*i);
+        object.position_.Reset(i*2500/5, 1500/5*i);
 
         Graphics game_item = Graphics(resources.GetTexture("box"));
         game_item.GetSprite()->setScale(.5,.5);
         game_item.GetSprite()->scale(.25,.25);
         game_item.GetSprite()->setOrigin(502/2,502/2);
-        game_item.GetSprite()->setPosition(1960/2 + i * 400,1080/2 +i * 200);
+        game_item.GetSprite()->setPosition(1960/5 + i * 400,1080/5 +i * 200);
 
         items.push_back(game_item);
         bodies.push_back(object);
@@ -73,30 +73,38 @@ int main()
                 window.close();
         }
 
+        //Spawn a body at the mouse location
+        if(sf::Mouse::isButtonPressed(Mouse::Left)){
+            /*Material i = Material(mass[1], 0.05);
+            ShapeBody* shape = new Rectangle(10,10,i);
+            shape->SetMass(mass[1]);
+            RigidBody* object = new RigidBody(shape);
+            object->position_.Reset(Mouse::getPosition(window).x, Mouse::getPosition(window).y);
+            Graphics game_item = Graphics(resources.GetTexture("box"));
+            game_item.GetSprite()->setScale(.5,.5);
+            game_item.GetSprite()->scale(.25,.25);
+            game_item.GetSprite()->setOrigin(502/2,502/2);
+            game_item.GetSprite()->setPosition(Mouse::getPosition(window).x, Mouse::getPosition(window).y);
+
+            items.push_back(game_item);
+            bodies.push_back(*object);*/
+        }
         if(sf::Keyboard::isKeyPressed(Keyboard::Space)){
             bodies.at(0).SetVelocity(0,0);
             bodies.at(0).SetAcceleration(Vec2(0,0));
         }
         if(sf::Keyboard::isKeyPressed(Keyboard::D)){
-            Vec2 forcevector(3000.f, 0);
-            Force force(forcevector);
-            bodies.at(0).AddForce(force);
+            bodies.at(0).SetVelocity(20,0);
         }
         if(sf::Keyboard::isKeyPressed(Keyboard::A)){
-            Vec2 forcevector(-3000.f, 0);
-            Force force(forcevector);
-            bodies.at(0).AddForce(force);
+            bodies.at(0).SetVelocity(-20,0);
 
         }
         if(sf::Keyboard::isKeyPressed(Keyboard::S)){
-            Vec2 forcevector(0, 3000.f);
-            Force force(forcevector);
-            bodies.at(0).AddForce(force);
+            bodies.at(0).SetVelocity(0,20);
         }
         if(sf::Keyboard::isKeyPressed(Keyboard::W)){
-            Vec2 forcevector(0, -3000.f);
-            Force force(forcevector);
-            bodies.at(0).AddForce(force);
+            bodies.at(0).SetVelocity(0,-20);
         }
 
 
@@ -107,8 +115,8 @@ int main()
         //Rigid body to rigid body interactions
         for(int i = 0; i < bodies.size(); i++){
             for(int j = 0; j < bodies.size(); j++){
-                //if(abs(bodies.at(0)->velocity_.GetX()) > .001 || abs(bodies.at(0)->velocity_.GetY()) > 0.01)
-                    //bodies.at(i)->AddDrag(.0001);
+                if(abs(bodies.at(0).velocity_.GetX()) > .001 || abs(bodies.at(0).velocity_.GetY()) > 0.01)
+                    bodies.at(i).AddDrag(.0001);
                     if(i == j){
                         continue;
                     }
@@ -122,7 +130,8 @@ int main()
             //Get force arrows
             for(Force force : bodies.at(i).GetForces()){
                 Graphics* arrow = new Graphics(resources.GetTexture("vector"));
-                arrow->SetScale(.25,1);
+                float scale = (force.GetMagnitude()/50);
+                arrow->SetScale(.25*scale,scale);
                 arrow->SetOrigin(Vec2(512/2,0));
                 arrow->SetPosition(bodies.at(i).GetPosition());
                 arrow->SetOrientation(270+force.GetAngle());
@@ -139,18 +148,20 @@ int main()
 
 
             //Looping around the screen
-            /*if(bodies.at(i)->GetPosition().GetX() < 0){
-                bodies.at(i)->SetX(1959);
+            if(bodies.at(i).GetPosition().GetX() < 0){
+                bodies.at(i).SetX(1959);
             }
-            else if(bodies.at(i)->GetPosition().GetX() > 1960){
-                bodies.at(i)->SetX(1);
+            else if(bodies.at(i).GetPosition().GetX() > 1960){
+                bodies.at(i).SetX(1);
             }
-            if(bodies.at(i)->GetPosition().GetY() < 0){
-                bodies.at(i)->SetY(1079);
+            if(bodies.at(i).GetPosition().GetY() < 0){
+                bodies.at(i).SetY(1079);
             }
-            else if(bodies.at(i)->GetPosition().GetY() > 1080){
-                bodies.at(i)->SetY(1);
-            }*/
+            else if(bodies.at(i).GetPosition().GetY() > 1080){
+                bodies.at(i).SetY(1);
+            }
+
+
             items.at(i).SetPosition(bodies.at(i).GetPosition());
             items.at(i).GetSprite()->setRotation(items.at(i).GetSprite()->getRotation() + .01);
             window.draw(*items.at(i).GetSprite());

@@ -52,6 +52,7 @@ public:
     Vec2 GetPosition();
     Vec2* GetPositionPointer();
     ShapeBody* GetShape();
+    Vec2 GetVelocity();
 };
 
 class ChargedBody : public RigidBody{
